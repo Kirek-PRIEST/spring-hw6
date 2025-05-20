@@ -15,7 +15,7 @@ public class Note {
     private Long id;
 
     @Column(name = "title", nullable = false)
-    private String title;  // измените Title на title
+    private String title;
 
     @Column(name = "description")
     private String description;

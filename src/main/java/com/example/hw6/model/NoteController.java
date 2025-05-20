@@ -1,5 +1,6 @@
 package com.example.hw6.model;
 
+import com.example.hw6.aspects.TrackUserAction;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +25,7 @@ public class NoteController {
         return ResponseEntity.ok(allNotes);
     }
 
+    @TrackUserAction
     @PostMapping
     ResponseEntity<Note> createNoTe(@RequestBody Note note) {
         if (note.getTitle() == null || note.getTitle().isEmpty()) {
@@ -36,13 +38,14 @@ public class NoteController {
         return ResponseEntity.status(HttpStatus.CREATED).body(newNote);
     }
 
+    @TrackUserAction
     @GetMapping("/{id}")
     ResponseEntity<Note> getNoteById(@PathVariable Long id) {
         return repository.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
-
+@TrackUserAction
     @PutMapping("/{id}")
     ResponseEntity<Note> updateNote(@PathVariable Long id, @RequestBody Note note) {
         return repository.findById(id)
